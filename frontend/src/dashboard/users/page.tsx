@@ -1,4 +1,4 @@
-"use client"
+
 
 import { useState } from "react"
 import { DashboardLayout } from "@/components/dashboard-layout"
@@ -11,6 +11,8 @@ import { UserPlus, Search, MoreVertical, Trash2, Eye } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { CreateUserDialog } from "@/components/create-user-dialog"
 import { UserDetailsDialog } from "@/components/user-details-dialog"
+import { cn } from "@/lib/utils"
+
 
 type User = {
   id: string
@@ -95,61 +97,65 @@ export default function UsersPage() {
           </Button>
         </div>
 
-        <Card className="p-6 glass-strong">
+        <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
           <div className="mb-6">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-slate-500" />
               <Input
                 placeholder="Search users..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 h-11 bg-white/50 dark:bg-slate-900/30 border-gray-200 dark:border-slate-800 rounded-xl"
               />
             </div>
           </div>
 
-          <div className="rounded-lg border border-border overflow-hidden">
+          <div className="rounded-xl border border-gray-200 dark:border-slate-800 overflow-hidden bg-white/50 dark:bg-slate-900/30 backdrop-blur-sm">
             <Table>
               <TableHeader>
-                <TableRow className="bg-muted/50">
-                  <TableHead>Name</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Role</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Posts Created</TableHead>
-                  <TableHead>Last Active</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                <TableRow className="bg-gray-50/50 dark:bg-slate-800/50 border-gray-200 dark:border-slate-800">
+                  <TableHead className="font-bold text-gray-900 dark:text-gray-100">Name</TableHead>
+                  <TableHead className="font-bold text-gray-900 dark:text-gray-100">Email</TableHead>
+                  <TableHead className="font-bold text-gray-900 dark:text-gray-100">Role</TableHead>
+                  <TableHead className="font-bold text-gray-900 dark:text-gray-100">Status</TableHead>
+                  <TableHead className="font-bold text-gray-900 dark:text-gray-100">Posts Created</TableHead>
+                  <TableHead className="font-bold text-gray-900 dark:text-gray-100">Last Active</TableHead>
+                  <TableHead className="text-right font-bold text-gray-900 dark:text-gray-100">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {filteredUsers.map((user) => (
-                  <TableRow key={user.id}>
-                    <TableCell className="font-medium">{user.name}</TableCell>
-                    <TableCell className="text-muted-foreground">{user.email}</TableCell>
-                    <TableCell>{user.role}</TableCell>
+                  <TableRow key={user.id} className="hover:bg-white/50 dark:hover:bg-slate-800/30 border-gray-100 dark:border-slate-800">
+                    <TableCell className="font-bold text-gray-900 dark:text-white">{user.name}</TableCell>
+                    <TableCell className="text-gray-600 dark:text-slate-400 font-medium">{user.email}</TableCell>
+                    <TableCell className="font-medium">{user.role}</TableCell>
                     <TableCell>
                       <Badge
-                        variant={user.status === "active" ? "default" : "secondary"}
-                        className={user.status === "active" ? "bg-success text-foreground" : ""}
+                        className={cn(
+                          "font-bold px-3 py-1 rounded-full",
+                          user.status === "active"
+                            ? "bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400"
+                            : "bg-gray-100 dark:bg-slate-700/50 text-gray-600 dark:text-slate-400"
+                        )}
                       >
                         {user.status}
                       </Badge>
                     </TableCell>
-                    <TableCell>{user.postsCreated}</TableCell>
-                    <TableCell className="text-muted-foreground">{user.lastActive}</TableCell>
+                    <TableCell className="font-bold text-gray-900 dark:text-white">{user.postsCreated}</TableCell>
+                    <TableCell className="text-gray-500 dark:text-slate-500 font-medium">{user.lastActive}</TableCell>
                     <TableCell className="text-right">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="icon">
+                          <Button variant="ghost" size="icon" className="hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
                             <MoreVertical className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem onClick={() => handleViewDetails(user)}>
+                        <DropdownMenuContent align="end" className="bg-white dark:bg-slate-900 border-gray-200 dark:border-slate-800">
+                          <DropdownMenuItem onClick={() => handleViewDetails(user)} className="cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
                             <Eye className="mr-2 h-4 w-4" />
                             View Details
                           </DropdownMenuItem>
-                          <DropdownMenuItem onClick={() => handleDeleteUser(user.id)} className="text-destructive">
+                          <DropdownMenuItem onClick={() => handleDeleteUser(user.id)} className="text-red-600 dark:text-red-400 cursor-pointer hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors">
                             <Trash2 className="mr-2 h-4 w-4" />
                             Delete User
                           </DropdownMenuItem>
@@ -164,10 +170,10 @@ export default function UsersPage() {
 
           {filteredUsers.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No users found.</p>
+              <p className="text-gray-500 dark:text-slate-500">No users found.</p>
             </div>
           )}
-        </Card>
+        </div>
       </div>
 
       <CreateUserDialog

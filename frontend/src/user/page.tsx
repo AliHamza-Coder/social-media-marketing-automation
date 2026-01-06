@@ -1,8 +1,6 @@
-"use client"
-
 import { UserDashboardLayout } from "@/components/user-dashboard-layout"
 import { TrendingUp, Clock, CheckCircle2, Calendar, Instagram, Linkedin, Facebook } from "lucide-react"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 
 export default function UserDashboardPage() {
   const stats = [
@@ -100,7 +98,7 @@ export default function UserDashboardPage() {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">Connected Accounts</h2>
             <Link
-              href="/user/social-accounts"
+              to="/user/social-accounts"
               className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors"
             >
               Manage All

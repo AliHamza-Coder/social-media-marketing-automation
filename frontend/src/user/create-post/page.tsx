@@ -1,4 +1,4 @@
-"use client"
+
 
 import { UserDashboardLayout } from "@/components/user-dashboard-layout"
 import { useState } from "react"
@@ -65,26 +65,28 @@ export default function UserCreatePostPage() {
           {/* Post Creator */}
           <div className="lg:col-span-2 space-y-6">
             <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Select Platforms</h3>
-              <div className="flex gap-3">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Select Platforms</h3>
+              <div className="flex gap-4">
                 {platforms.map((platform) => (
                   <button
                     key={platform.name}
                     onClick={() => togglePlatform(platform.name)}
-                    className={`flex items-center gap-2 px-4 py-3 rounded-xl transition-all ${
+                    className={`flex items-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 transform active:scale-[0.95] ${
                       selectedPlatforms.includes(platform.name)
-                        ? "ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-950"
-                        : "opacity-50 hover:opacity-75"
+                        ? "shadow-lg scale-[1.02]"
+                        : "opacity-60 hover:opacity-100 hover:scale-[1.02]"
                     }`}
                     style={{
                       background: selectedPlatforms.includes(platform.name)
                         ? platform.color + "20"
                         : "rgba(0, 0, 0, 0.05)",
-                      ringColor: selectedPlatforms.includes(platform.name) ? platform.color : undefined,
+                      boxShadow: selectedPlatforms.includes(platform.name) ? `0 0 0 3px ${platform.color}` : "inset 0 2px 4px rgba(0,0,0,0.02)",
                     }}
                   >
-                    <platform.icon className="h-5 w-5" style={{ color: platform.color }} />
-                    <span className="font-medium text-gray-900 dark:text-white">{platform.name}</span>
+                    <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-white/50 dark:bg-slate-900/50">
+                      <platform.icon className="h-5 w-5" style={{ color: platform.color }} />
+                    </div>
+                    <span className="font-bold text-gray-900 dark:text-white">{platform.name}</span>
                   </button>
                 ))}
               </div>
@@ -92,14 +94,14 @@ export default function UserCreatePostPage() {
 
             <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Caption</h3>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">Caption</h3>
                 <button
                   onClick={generateAICaption}
                   disabled={aiGenerating}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors disabled:opacity-50"
+                  className="group flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition-all shadow-md active:scale-[0.98] disabled:opacity-50"
                 >
-                  <Sparkles className="h-4 w-4" />
-                  {aiGenerating ? "Generating..." : "Generate with AI"}
+                  <Sparkles className="h-4 w-4 transition-transform group-hover:rotate-12" />
+                  {aiGenerating ? "Generating..." : "AI Generate"}
                 </button>
               </div>
               <textarea
@@ -107,9 +109,9 @@ export default function UserCreatePostPage() {
                 onChange={(e) => setCaption(e.target.value)}
                 placeholder="Write your caption here..."
                 rows={8}
-                className="w-full rounded-xl p-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800"
+                className="w-full rounded-2xl p-5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/80 dark:bg-slate-950/50 backdrop-blur-sm border border-gray-200 dark:border-slate-800 transition-all font-medium leading-relaxed"
               />
-              <div className="mt-2 text-sm text-gray-600 dark:text-slate-400">{caption.length} characters</div>
+              <div className="mt-3 text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest">{caption.length} characters</div>
             </div>
 
             <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">

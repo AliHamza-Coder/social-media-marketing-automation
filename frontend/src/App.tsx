@@ -1,27 +1,55 @@
-import './App.css'
+import { Routes, Route } from 'react-router-dom'
+import { ThemeProvider } from './components/theme-provider'
+import LoginPage from './page'
+import DashboardPage from './dashboard/page'
+import DashboardCreatePost from './dashboard/create-post/page'
+import DashboardSchedule from './dashboard/schedule/page'
+import DashboardUsers from './dashboard/users/page'
+import DashboardSettings from './dashboard/settings/page'
+
+import UserDashboardPage from './user/page'
+import UserCreatePost from './user/create-post/page'
+import UserSchedule from './user/schedule/page'
+import UserAnalytics from './user/analytics/page'
+import UserContentLibrary from './user/content-library/page'
+import UserTemplates from './user/templates/page'
+import UserHashtags from './user/hashtags/page'
+import UserTeam from './user/team/page'
+import UserCompetitors from './user/competitor-analysis/page'
+import UserAISuggestions from './user/ai-suggestions/page'
+import UserBulkUpload from './user/bulk-upload/page'
+import UserSocialAccounts from './user/social-accounts/page'
+import UserSettings from './user/settings/page'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
-        <div className="p-8">
-          <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
-            Social Media Marketing Automation
-          </div>
-          <h1 className="block mt-1 text-lg leading-tight font-medium text-black">
-            Facebook & Instagram Automation Tool
-          </h1>
-          <p className="mt-2 text-gray-500">
-            Automate your social media marketing efforts across Facebook and Instagram platforms.
-          </p>
-          <div className="mt-4">
-            <button className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">
-              Get Started
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        
+        {/* Dashboard Routes */}
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/dashboard/create-post" element={<DashboardCreatePost />} />
+        <Route path="/dashboard/schedule" element={<DashboardSchedule />} />
+        <Route path="/dashboard/users" element={<DashboardUsers />} />
+        <Route path="/dashboard/settings" element={<DashboardSettings />} />
+
+        {/* User Routes */}
+        <Route path="/user" element={<UserDashboardPage />} />
+        <Route path="/user/create-post" element={<UserCreatePost />} />
+        <Route path="/user/schedule" element={<UserSchedule />} />
+        <Route path="/user/analytics" element={<UserAnalytics />} />
+        <Route path="/user/content-library" element={<UserContentLibrary />} />
+        <Route path="/user/templates" element={<UserTemplates />} />
+        <Route path="/user/hashtags" element={<UserHashtags />} />
+        <Route path="/user/team" element={<UserTeam />} />
+        <Route path="/user/competitor-analysis" element={<UserCompetitors />} />
+        <Route path="/user/ai-suggestions" element={<UserAISuggestions />} />
+        <Route path="/user/bulk-upload" element={<UserBulkUpload />} />
+        <Route path="/user/social-accounts" element={<UserSocialAccounts />} />
+        <Route path="/user/settings" element={<UserSettings />} />
+      </Routes>
+    </ThemeProvider>
   )
 }
 

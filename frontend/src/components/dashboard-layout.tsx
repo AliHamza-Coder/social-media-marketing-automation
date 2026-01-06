@@ -1,5 +1,3 @@
-"use client"
-
 import type React from "react"
 import { useState } from "react"
 import {
@@ -15,9 +13,8 @@ import {
   Sun,
   Moon,
 } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useTheme } from "next-themes"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useTheme } from "@/components/theme-provider"
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -28,12 +25,15 @@ const navigation = [
 ]
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const pathname = location.pathname
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { theme, setTheme } = useTheme()
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950">
+    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-200">
+
       {/* Mobile Sidebar */}
       <div
         className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? "block" : "hidden"}`}
@@ -64,7 +64,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               return (
                 <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
                     isActive
                       ? "bg-indigo-600 text-white"
@@ -80,7 +80,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
           </nav>
           <div className="absolute bottom-4 left-4 right-4">
             <button
-              onClick={() => (window.location.href = "/")}
+              onClick={() => navigate("/")}
               className="w-full flex items-center justify-start gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-800 transition-colors"
             >
               <LogOut className="h-5 w-5" />
@@ -104,7 +104,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             return (
               <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
                   isActive
                     ? "bg-indigo-600 text-white"
@@ -119,7 +119,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         </nav>
         <div className="p-4">
           <button
-            onClick={() => (window.location.href = "/")}
+            onClick={() => navigate("/")}
             className="w-full flex items-center justify-start gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-800 transition-colors"
           >
             <LogOut className="h-5 w-5" />

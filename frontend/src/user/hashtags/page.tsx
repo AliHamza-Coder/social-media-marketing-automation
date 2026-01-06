@@ -1,8 +1,10 @@
-"use client"
+
 
 import { UserDashboardLayout } from "@/components/user-dashboard-layout"
 import { useState } from "react"
 import { Hash, Plus, TrendingUp, Copy, Check, Sparkles } from "lucide-react"
+import { cn } from "@/lib/utils"
+
 
 export default function HashtagsPage() {
   const [copied, setCopied] = useState<number | null>(null)
@@ -49,71 +51,56 @@ export default function HashtagsPage() {
       <div className="space-y-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-2 text-white">Hashtag Manager</h1>
-            <p className="text-slate-400">Organize and optimize your hashtags for better reach</p>
+            <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white tracking-tight">Hashtag Manager</h1>
+            <p className="text-gray-600 dark:text-slate-400">Organize and optimize your hashtags for better reach</p>
           </div>
-          <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-500 text-white font-medium hover:bg-indigo-600 transition-colors">
+          <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 dark:shadow-none active:scale-[0.98]">
             <Plus className="h-5 w-5" />
             New Group
           </button>
         </div>
 
         {/* AI Hashtag Suggestions */}
-        <div
-          className="rounded-2xl p-6"
-          style={{
-            background: "rgba(99, 102, 241, 0.05)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(99, 102, 241, 0.1)",
-          }}
-        >
-          <div className="flex items-center gap-3 mb-4">
-            <Sparkles className="h-6 w-6 text-indigo-400" />
-            <h2 className="text-xl font-bold text-white">AI Hashtag Generator</h2>
+        <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30 shadow-sm relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-all duration-500 transform translate-x-4 -translate-y-4">
+             <Sparkles className="h-24 w-24 text-indigo-400" />
           </div>
-          <div className="flex gap-4">
+          <div className="flex items-center gap-3 mb-6 relative z-10">
+            <div className="h-10 w-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+              <Sparkles className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+            </div>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">AI Hashtag Generator</h2>
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 relative z-10">
             <input
               type="text"
               placeholder="Describe your post content..."
-              className="flex-1 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              style={{
-                background: "rgba(255, 255, 255, 0.05)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-              }}
+              className="flex-1 rounded-xl px-4 py-3.5 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white/80 dark:bg-slate-950/50 backdrop-blur-sm border border-gray-200 dark:border-slate-800 transition-all font-medium"
             />
-            <button className="px-6 py-3 rounded-xl bg-indigo-500 text-white font-medium hover:bg-indigo-600 transition-colors">
+            <button className="px-8 py-3.5 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 dark:shadow-none active:scale-[0.98]">
               Generate
             </button>
           </div>
         </div>
 
         {/* Trending Hashtags */}
-        <div
-          className="rounded-2xl p-6"
-          style={{
-            background: "rgba(99, 102, 241, 0.05)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(99, 102, 241, 0.1)",
-          }}
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <TrendingUp className="h-6 w-6 text-emerald-400" />
-            <h2 className="text-xl font-bold text-white">Trending Now</h2>
+        <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-10 w-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
+              <TrendingUp className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Trending Now</h2>
           </div>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {trendingHashtags.map((item) => (
               <div
                 key={item.tag}
-                className="rounded-xl p-4"
-                style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
-                }}
+                className="rounded-2xl p-4 bg-white/60 dark:bg-slate-950/40 backdrop-blur-sm border border-gray-100 dark:border-slate-800 transition-all hover:scale-[1.02] hover:bg-white dark:hover:bg-slate-800 shadow-sm"
               >
-                <p className="text-indigo-400 font-semibold mb-2">{item.tag}</p>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-slate-400">{item.posts} posts</span>
-                  <span className="text-emerald-400 font-medium">{item.trend}</span>
+                <p className="text-indigo-600 dark:text-indigo-400 font-bold mb-3">{item.tag}</p>
+                <div className="flex items-center justify-between text-[10px] font-bold tracking-widest uppercase">
+                  <span className="text-gray-400 dark:text-slate-500">{item.posts} posts</span>
+                  <span className="text-emerald-600 dark:text-emerald-400">{item.trend}</span>
                 </div>
               </div>
             ))}
@@ -121,59 +108,52 @@ export default function HashtagsPage() {
         </div>
 
         {/* Saved Hashtag Groups */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-bold text-white">Saved Groups</h2>
+        <div className="space-y-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">Saved Groups</h2>
           {hashtagGroups.map((group) => (
             <div
               key={group.id}
-              className="rounded-2xl p-6"
-              style={{
-                background: "rgba(99, 102, 241, 0.05)",
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(99, 102, 241, 0.1)",
-              }}
+              className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30 transition-all hover:shadow-lg"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div
-                    className="h-12 w-12 rounded-xl flex items-center justify-center"
-                    style={{ background: "rgba(99, 102, 241, 0.2)" }}
-                  >
-                    <Hash className="h-6 w-6 text-indigo-400" />
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+                <div className="flex items-center gap-4">
+                  <div className="h-14 w-14 rounded-2xl bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-200 dark:shadow-none">
+                    <Hash className="h-7 w-7 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">{group.name}</h3>
-                    <p className="text-sm text-slate-400">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{group.name}</h3>
+                    <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest">
                       Used {group.usage} times • {group.performance} performance
                     </p>
                   </div>
                 </div>
                 <button
                   onClick={() => copyHashtags(group.hashtags, group.id)}
-                  className="px-4 py-2 rounded-lg bg-indigo-500 text-white font-medium hover:bg-indigo-600 transition-colors flex items-center gap-2"
+                  className={cn(
+                    "px-6 py-3 rounded-xl font-bold transition-all active:scale-[0.98] flex items-center gap-2 shadow-lg dark:shadow-none",
+                    copied === group.id 
+                      ? "bg-emerald-500 text-white shadow-emerald-100" 
+                      : "bg-white dark:bg-slate-900 text-gray-900 dark:text-white hover:bg-gray-50 border border-gray-200 dark:border-slate-800"
+                  )}
                 >
                   {copied === group.id ? (
                     <>
-                      <Check className="h-4 w-4" />
+                      <Check className="h-5 w-5" />
                       Copied
                     </>
                   ) : (
                     <>
-                      <Copy className="h-4 w-4" />
+                      <Copy className="h-5 w-5" />
                       Copy All
                     </>
                   )}
                 </button>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2.5">
                 {group.hashtags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 rounded-lg text-sm font-medium text-indigo-400"
-                    style={{
-                      background: "rgba(99, 102, 241, 0.1)",
-                      border: "1px solid rgba(99, 102, 241, 0.2)",
-                    }}
+                    className="px-4 py-2 rounded-xl text-sm font-bold text-indigo-600 dark:text-indigo-400 bg-white/80 dark:bg-slate-950/50 backdrop-blur-sm border border-gray-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all cursor-default"
                   >
                     {tag}
                   </span>

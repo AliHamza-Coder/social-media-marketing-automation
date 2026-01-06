@@ -1,18 +1,17 @@
-"use client"
-
 import type React from "react"
-
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { Sparkles } from "lucide-react"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate()
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     // Mock login - redirect to dashboard
-    window.location.href = "/dashboard"
+    navigate("/dashboard")
   }
 
   return (

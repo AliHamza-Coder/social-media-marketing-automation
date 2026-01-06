@@ -1,5 +1,3 @@
-"use client"
-
 import type React from "react"
 import { useState } from "react"
 import {
@@ -23,9 +21,8 @@ import {
   Lightbulb,
   Upload,
 } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useTheme } from "next-themes"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useTheme } from "@/components/theme-provider"
 
 const navigation = [
   { name: "Dashboard", href: "/user", icon: LayoutDashboard },
@@ -44,12 +41,15 @@ const navigation = [
 ]
 
 export function UserDashboardLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const pathname = location.pathname
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { theme, setTheme } = useTheme()
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950">
+    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-200">
+
       {/* Mobile Sidebar */}
       <div
         className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? "block" : "hidden"}`}
@@ -89,7 +89,7 @@ export function UserDashboardLayout({ children }: { children: React.ReactNode })
               return (
                 <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                     isActive
                       ? "bg-indigo-600 text-white"
@@ -105,7 +105,7 @@ export function UserDashboardLayout({ children }: { children: React.ReactNode })
           </nav>
           <div className="sticky bottom-0 p-4 bg-gray-50 dark:bg-slate-900" style={{ borderTop: "1px solid" }}>
             <button
-              onClick={() => (window.location.href = "/")}
+              onClick={() => navigate("/")}
               className="w-full flex items-center justify-start gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-800 transition-colors"
             >
               <LogOut className="h-5 w-5" />
@@ -132,13 +132,13 @@ export function UserDashboardLayout({ children }: { children: React.ReactNode })
             return (
               <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                   isActive
                     ? "bg-indigo-600 text-white"
                     : "text-gray-600 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-slate-800"
                 }`}
-              >
+               >
                 <item.icon className="h-5 w-5" />
                 <span className="font-medium">{item.name}</span>
               </Link>
@@ -147,7 +147,7 @@ export function UserDashboardLayout({ children }: { children: React.ReactNode })
         </nav>
         <div className="p-4 flex-shrink-0 border-t border-gray-200 dark:border-slate-800">
           <button
-            onClick={() => (window.location.href = "/")}
+            onClick={() => navigate("/")}
             className="w-full flex items-center justify-start gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-200 dark:hover:bg-slate-800 transition-colors"
           >
             <LogOut className="h-5 w-5" />

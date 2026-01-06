@@ -1,4 +1,4 @@
-"use client"
+
 
 import { UserDashboardLayout } from "@/components/user-dashboard-layout"
 import { useState } from "react"
@@ -64,20 +64,20 @@ export default function UserSchedulePage() {
           <div className="lg:col-span-2">
             <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
               {/* Calendar Header */}
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
                   {currentDate.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
                 </h2>
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <button
                     onClick={() => navigateMonth(-1)}
-                    className="h-10 w-10 rounded-lg flex items-center justify-center hover:bg-gray-200 dark:hover:bg-slate-800 transition-colors bg-white/50 dark:bg-slate-900/30 border border-gray-200 dark:border-slate-800"
+                    className="h-11 w-11 rounded-xl flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 transition-all bg-white/50 dark:bg-slate-900/40 border border-gray-200 dark:border-slate-800 shadow-sm active:scale-95"
                   >
                     <ChevronLeft className="h-5 w-5 text-gray-900 dark:text-white" />
                   </button>
                   <button
                     onClick={() => navigateMonth(1)}
-                    className="h-10 w-10 rounded-lg flex items-center justify-center hover:bg-gray-200 dark:hover:bg-slate-800 transition-colors bg-white/50 dark:bg-slate-900/30 border border-gray-200 dark:border-slate-800"
+                    className="h-11 w-11 rounded-xl flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 transition-all bg-white/50 dark:bg-slate-900/40 border border-gray-200 dark:border-slate-800 shadow-sm active:scale-95"
                   >
                     <ChevronRight className="h-5 w-5 text-gray-900 dark:text-white" />
                   </button>
@@ -85,15 +85,15 @@ export default function UserSchedulePage() {
               </div>
 
               {/* Calendar Grid */}
-              <div className="grid grid-cols-7 gap-2">
+              <div className="grid grid-cols-7 gap-3">
                 {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-                  <div key={day} className="text-center text-sm font-medium text-gray-600 dark:text-slate-400 py-2">
+                  <div key={day} className="text-center text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest pb-4">
                     {day}
                   </div>
                 ))}
 
                 {Array.from({ length: firstDay }).map((_, i) => (
-                  <div key={`empty-${i}`} className="aspect-square"></div>
+                  <div key={`empty-${i}`} className="aspect-square opacity-20"></div>
                 ))}
 
                 {Array.from({ length: daysInMonth }).map((_, i) => {
@@ -102,16 +102,16 @@ export default function UserSchedulePage() {
                   return (
                     <div
                       key={day}
-                      className={`aspect-square rounded-lg p-2 text-center cursor-pointer transition-all hover:bg-gray-200 dark:hover:bg-slate-800 ${
+                      className={`aspect-square rounded-2xl p-2 text-center cursor-pointer transition-all duration-300 relative group ${
                         isToday
-                          ? "bg-indigo-600 text-white"
-                          : "bg-white/70 dark:bg-slate-900/50 text-gray-900 dark:text-slate-300 border border-gray-200 dark:border-slate-800"
+                          ? "bg-indigo-600 shadow-lg shadow-indigo-200 dark:shadow-none translate-y-[-2px]"
+                          : "bg-white/60 dark:bg-slate-950/40 hover:bg-white dark:hover:bg-slate-800 border border-gray-100 dark:border-slate-800"
                       }`}
                     >
-                      <div className="font-medium">{day}</div>
+                      <div className={`font-bold text-sm ${isToday ? "text-white" : "text-gray-900 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400"}`}>{day}</div>
                       {day === 15 || day === 16 ? (
-                        <div className="flex justify-center mt-1">
-                          <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400"></div>
+                        <div className="absolute bottom-2 left-1/2 -translate-x-1/2">
+                          <div className={`h-1.5 w-1.5 rounded-full ${isToday ? "bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]" : "bg-indigo-500 dark:bg-indigo-400 shadow-sm"}`}></div>
                         </div>
                       ) : null}
                     </div>
@@ -122,28 +122,30 @@ export default function UserSchedulePage() {
           </div>
 
           {/* Upcoming Posts */}
-          <div>
+          <div className="space-y-6">
             <div className="rounded-2xl p-6 sticky top-8 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Upcoming Posts</h3>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Upcoming</h3>
               <div className="space-y-4">
                 {scheduledPosts.map((post) => (
                   <div
                     key={post.id}
-                    className="rounded-xl p-4 bg-white/50 dark:bg-slate-900/30 border border-gray-200 dark:border-slate-800"
+                    className="group rounded-2xl p-4 bg-white/60 dark:bg-slate-950/40 backdrop-blur-sm border border-gray-100 dark:border-slate-800 transition-all hover:scale-[1.02] hover:bg-white dark:hover:bg-slate-800 shadow-sm"
                   >
-                    <div className="flex items-start gap-3">
+                    <div className="flex items-start gap-4">
                       <div
-                        className="h-10 w-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                        className="h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm border border-white/50 dark:border-white/10"
                         style={{ backgroundColor: post.color + "20" }}
                       >
-                        <post.icon className="h-5 w-5" style={{ color: post.color }} />
+                        <post.icon className="h-6 w-6" style={{ color: post.color }} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">{post.platform}</p>
-                        <p className="text-sm text-gray-600 dark:text-slate-400 truncate mb-2">{post.content}</p>
-                        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-slate-500">
-                          <Clock className="h-3 w-3" />
-                          <span>{post.time}</span>
+                        <div className="flex items-center justify-between mb-1">
+                          <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest">{post.platform}</p>
+                        </div>
+                        <p className="text-sm font-bold text-gray-900 dark:text-white truncate mb-2 leading-relaxed">{post.content}</p>
+                        <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-indigo-50/50 dark:bg-indigo-950/20 w-fit">
+                          <Clock className="h-3 w-3 text-indigo-600 dark:text-indigo-400" />
+                          <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400">{post.time}</span>
                         </div>
                       </div>
                     </div>

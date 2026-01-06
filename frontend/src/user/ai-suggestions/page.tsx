@@ -1,7 +1,9 @@
-"use client"
+
 
 import { UserDashboardLayout } from "@/components/user-dashboard-layout"
 import { Sparkles, Clock, TrendingUp, Lightbulb, Target, Zap } from "lucide-react"
+import { cn } from "@/lib/utils"
+
 
 export default function AISuggestionsPage() {
   const optimalTimes = [
@@ -63,43 +65,35 @@ export default function AISuggestionsPage() {
     <UserDashboardLayout>
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-bold mb-2 text-white">AI Content Suggestions</h1>
-          <p className="text-slate-400">Get personalized recommendations to optimize your content strategy</p>
+          <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white tracking-tight">AI Content Suggestions</h1>
+          <p className="text-gray-600 dark:text-slate-400">Get personalized recommendations to optimize your content strategy</p>
         </div>
 
         {/* Optimal Posting Times */}
-        <div
-          className="rounded-2xl p-6"
-          style={{
-            background: "rgba(99, 102, 241, 0.05)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(99, 102, 241, 0.1)",
-          }}
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <Clock className="h-6 w-6 text-indigo-400" />
-            <h2 className="text-xl font-bold text-white">Optimal Posting Times</h2>
+        <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-10 w-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+              <Clock className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+            </div>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Optimal Posting Times</h2>
           </div>
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3">
             {optimalTimes.map((time) => (
               <div
                 key={time.day}
-                className="rounded-xl p-6"
-                style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
-                }}
+                className="rounded-2xl p-6 bg-white/60 dark:bg-slate-950/40 backdrop-blur-sm border border-gray-100 dark:border-slate-800 transition-all hover:scale-[1.02] hover:bg-white dark:hover:bg-slate-800 shadow-sm"
               >
-                <p className="text-indigo-400 font-semibold mb-2">{time.day}</p>
-                <p className="text-2xl font-bold text-white mb-2">{time.time}</p>
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-slate-400">{time.platform}</span>
+                <p className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-2">{time.day}</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-white mb-3 tabular-nums">{time.time}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest">{time.platform}</span>
                   <span
-                    className={`px-2 py-1 rounded-md text-xs font-medium ${
+                    className={cn(
+                      "px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest",
                       time.engagement === "Very High"
-                        ? "bg-emerald-500/20 text-emerald-400"
-                        : "bg-amber-500/20 text-amber-400"
-                    }`}
+                        ? "bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                        : "bg-amber-100 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400"
+                    )}
                   >
                     {time.engagement}
                   </span>
@@ -110,49 +104,39 @@ export default function AISuggestionsPage() {
         </div>
 
         {/* Content Ideas */}
-        <div
-          className="rounded-2xl p-6"
-          style={{
-            background: "rgba(99, 102, 241, 0.05)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(99, 102, 241, 0.1)",
-          }}
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <Sparkles className="h-6 w-6 text-indigo-400" />
-            <h2 className="text-xl font-bold text-white">AI-Generated Content Ideas</h2>
+        <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-10 w-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+              <Sparkles className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+            </div>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">AI-Generated Content Ideas</h2>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
             {contentIdeas.map((idea) => (
               <div
                 key={idea.id}
-                className="rounded-xl p-6"
-                style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
-                }}
+                className="group rounded-2xl p-6 bg-white/60 dark:bg-slate-950/40 backdrop-blur-sm border border-gray-100 dark:border-slate-800 transition-all hover:scale-[1.02] hover:bg-white dark:hover:bg-slate-800 shadow-sm"
               >
-                <div className="flex items-start gap-4 mb-4">
+                <div className="flex items-start gap-4 mb-6">
                   <div
-                    className="h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ background: "rgba(99, 102, 241, 0.2)" }}
+                    className="h-14 w-14 rounded-2xl bg-indigo-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-indigo-200 dark:shadow-none"
                   >
-                    <idea.icon className="h-6 w-6 text-indigo-400" />
+                    <idea.icon className="h-7 w-7 text-white" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-lg font-semibold text-white">{idea.title}</h3>
-                      <span className="px-2 py-1 rounded-md text-xs font-medium bg-emerald-500/20 text-emerald-400">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{idea.title}</h3>
+                      <span className="px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-widest bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
                         {idea.engagement}
                       </span>
                     </div>
-                    <p className="text-sm text-slate-400 mb-3">{idea.description}</p>
-                    <span className="inline-block px-3 py-1 rounded-lg text-xs font-medium text-indigo-400 bg-indigo-500/10">
+                    <p className="text-sm font-medium text-gray-500 dark:text-slate-400 leading-relaxed mb-4">{idea.description}</p>
+                    <span className="inline-block px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800/50">
                       {idea.category}
                     </span>
                   </div>
                 </div>
-                <button className="w-full px-4 py-2 rounded-lg bg-indigo-500 text-white font-medium hover:bg-indigo-600 transition-colors">
+                <button className="w-full px-6 py-3 rounded-xl bg-indigo-600 text-white font-bold transition-all shadow-lg shadow-indigo-100 dark:shadow-none hover:bg-indigo-700 active:scale-[0.98]">
                   Use This Idea
                 </button>
               </div>
@@ -161,63 +145,46 @@ export default function AISuggestionsPage() {
         </div>
 
         {/* Trending Topics */}
-        <div
-          className="rounded-2xl p-6"
-          style={{
-            background: "rgba(99, 102, 241, 0.05)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(99, 102, 241, 0.1)",
-          }}
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <TrendingUp className="h-6 w-6 text-emerald-400" />
-            <h2 className="text-xl font-bold text-white">Trending Topics in Your Niche</h2>
+        <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-10 w-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
+              <TrendingUp className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Trending Topics in Your Niche</h2>
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-6 md:grid-cols-2">
             {trendingTopics.map((topic) => (
               <div
                 key={topic.topic}
-                className="rounded-xl p-6"
-                style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
-                }}
+                className="rounded-2xl p-6 bg-white/60 dark:bg-slate-950/40 backdrop-blur-sm border border-gray-100 dark:border-slate-800 transition-all hover:bg-white dark:hover:bg-slate-800 shadow-sm"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-lg font-semibold text-white">{topic.topic}</h3>
-                  <span className="px-3 py-1 rounded-lg text-xs font-medium bg-emerald-500/20 text-emerald-400">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">{topic.topic}</h3>
+                  <span className="px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
                     {topic.relevance} match
                   </span>
                 </div>
-                <p className="text-sm text-slate-400">{topic.posts} posts using this topic</p>
+                <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest">{topic.posts} posts using this topic</p>
               </div>
             ))}
           </div>
         </div>
 
         {/* Audience Insights */}
-        <div
-          className="rounded-2xl p-6"
-          style={{
-            background: "rgba(99, 102, 241, 0.05)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(99, 102, 241, 0.1)",
-          }}
-        >
-          <h2 className="text-xl font-bold text-white mb-6">Audience Insights</h2>
+        <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-8 tracking-tight">Audience Insights</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {audienceInsights.map((insight) => (
               <div
                 key={insight.metric}
-                className="rounded-xl p-6"
-                style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
-                }}
+                className="rounded-2xl p-6 bg-white/60 dark:bg-slate-950/40 backdrop-blur-sm border border-gray-100 dark:border-slate-800 transition-all hover:bg-white dark:hover:bg-slate-800 shadow-sm"
               >
-                <p className="text-slate-400 text-sm mb-2">{insight.metric}</p>
-                <p className="text-xl font-bold text-white mb-2">{insight.value}</p>
-                <span className="text-sm font-medium text-emerald-400">{insight.change}</span>
+                <p className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-2">{insight.metric}</p>
+                <p className="text-xl font-bold text-gray-900 dark:text-white mb-3">{insight.value}</p>
+                <div className="flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                  <TrendingUp className="h-3 w-3" />
+                  <span>{insight.change}</span>
+                </div>
               </div>
             ))}
           </div>

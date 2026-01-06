@@ -1,7 +1,9 @@
-"use client"
+
 
 import { UserDashboardLayout } from "@/components/user-dashboard-layout"
 import { TrendingUp, Heart, MessageCircle, Eye, Plus } from "lucide-react"
+import { cn } from "@/lib/utils"
+
 
 export default function CompetitorAnalysisPage() {
   const competitors = [
@@ -99,10 +101,10 @@ export default function CompetitorAnalysisPage() {
       <div className="space-y-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-2 text-white">Competitor Analysis</h1>
-            <p className="text-slate-400">Track and analyze competitor social media performance</p>
+            <h1 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white tracking-tight">Competitor Analysis</h1>
+            <p className="text-gray-600 dark:text-slate-400">Track and analyze competitor social media performance</p>
           </div>
-          <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-500 text-white font-medium hover:bg-indigo-600 transition-colors">
+          <button className="flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 dark:shadow-none active:scale-[0.98]">
             <Plus className="h-5 w-5" />
             Add Competitor
           </button>
@@ -113,71 +115,52 @@ export default function CompetitorAnalysisPage() {
           {insights.map((insight) => (
             <div
               key={insight.title}
-              className="rounded-2xl p-6"
-              style={{
-                background: "rgba(99, 102, 241, 0.05)",
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(99, 102, 241, 0.1)",
-              }}
+              className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
             >
-              <div
-                className="h-12 w-12 rounded-xl flex items-center justify-center mb-4"
-                style={{ background: "rgba(99, 102, 241, 0.2)" }}
-              >
-                <insight.icon className="h-6 w-6 text-indigo-400" />
+              <div className="h-12 w-12 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center mb-6">
+                <insight.icon className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
               </div>
-              <p className="text-slate-400 text-sm mb-1">{insight.title}</p>
-              <p className="text-xl font-bold text-white mb-2">{insight.value}</p>
-              <p className="text-xs text-slate-500">{insight.description}</p>
+              <p className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-1">{insight.title}</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{insight.value}</p>
+              <p className="text-xs font-medium text-gray-500 dark:text-slate-400 leading-relaxed">{insight.description}</p>
             </div>
           ))}
         </div>
 
         {/* Competitors Overview */}
-        <div
-          className="rounded-2xl p-6"
-          style={{
-            background: "rgba(99, 102, 241, 0.05)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(99, 102, 241, 0.1)",
-          }}
-        >
-          <h2 className="text-xl font-bold text-white mb-6">Tracked Competitors</h2>
-          <div className="space-y-4">
+        <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-8 tracking-tight">Tracked Competitors</h2>
+          <div className="grid gap-6 lg:grid-cols-3">
             {competitors.map((comp) => (
               <div
                 key={comp.id}
-                className="rounded-xl p-6"
-                style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
-                }}
+                className="rounded-2xl p-6 bg-white/60 dark:bg-slate-950/40 backdrop-blur-sm border border-gray-100 dark:border-slate-800 transition-all hover:bg-white dark:hover:bg-slate-800 shadow-sm"
               >
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between mb-6">
                   <div>
-                    <h3 className="text-lg font-semibold text-white mb-1">{comp.name}</h3>
-                    <p className="text-sm text-slate-400">{comp.industry}</p>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-indigo-600 transition-colors">{comp.name}</h3>
+                    <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest">{comp.industry}</p>
                   </div>
-                  <span className="px-3 py-1 rounded-lg text-sm font-medium bg-emerald-500/20 text-emerald-400">
+                  <span className="px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">
                     {comp.trend}
                   </span>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 gap-y-6 gap-x-4">
                   <div>
-                    <p className="text-slate-400 text-xs mb-1">Followers</p>
-                    <p className="text-white font-semibold">{comp.followers}</p>
+                    <p className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-1">Followers</p>
+                    <p className="text-base font-bold text-gray-900 dark:text-white">{comp.followers}</p>
                   </div>
                   <div>
-                    <p className="text-slate-400 text-xs mb-1">Engagement</p>
-                    <p className="text-white font-semibold">{comp.avgEngagement}</p>
+                    <p className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-1">Engagement</p>
+                    <p className="text-base font-bold text-gray-900 dark:text-white">{comp.avgEngagement}</p>
                   </div>
                   <div>
-                    <p className="text-slate-400 text-xs mb-1">Posts/Week</p>
-                    <p className="text-white font-semibold">{comp.postsPerWeek}</p>
+                    <p className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-1">Posts/Week</p>
+                    <p className="text-base font-bold text-gray-900 dark:text-white">{comp.postsPerWeek}</p>
                   </div>
                   <div>
-                    <p className="text-slate-400 text-xs mb-1">Top Platform</p>
-                    <p className="text-white font-semibold">{comp.topPlatform}</p>
+                    <p className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-1">Top Platform</p>
+                    <p className="text-base font-bold text-gray-900 dark:text-white">{comp.topPlatform}</p>
                   </div>
                 </div>
               </div>
@@ -186,43 +169,32 @@ export default function CompetitorAnalysisPage() {
         </div>
 
         {/* Top Performing Competitor Posts */}
-        <div
-          className="rounded-2xl p-6"
-          style={{
-            background: "rgba(99, 102, 241, 0.05)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(99, 102, 241, 0.1)",
-          }}
-        >
-          <h2 className="text-xl font-bold text-white mb-6">Top Competitor Posts</h2>
+        <div className="rounded-2xl p-6 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/20 border border-indigo-100 dark:border-indigo-900/30">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-8 tracking-tight">Top Competitor Posts</h2>
           <div className="space-y-4">
             {competitorPosts.map((post) => (
               <div
                 key={post.id}
-                className="rounded-xl p-6"
-                style={{
-                  background: "rgba(255, 255, 255, 0.02)",
-                  border: "1px solid rgba(255, 255, 255, 0.05)",
-                }}
+                className="rounded-2xl p-6 bg-white/60 dark:bg-slate-950/40 backdrop-blur-sm border border-gray-100 dark:border-slate-800 transition-all hover:scale-[1.01] shadow-sm"
               >
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <p className="text-indigo-400 font-semibold mb-1">{post.competitor}</p>
-                    <p className="text-white mb-2">{post.content}</p>
-                    <div className="flex items-center gap-4 text-sm text-slate-400">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest mb-2">{post.competitor}</p>
+                    <p className="text-lg font-bold text-gray-900 dark:text-white mb-2 leading-relaxed">{post.content}</p>
+                    <div className="flex items-center gap-4 text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest">
                       <span>{post.platform}</span>
                       <span>{post.date}</span>
                     </div>
                   </div>
-                </div>
-                <div className="flex gap-6 text-sm">
-                  <div>
-                    <span className="text-slate-400">Engagement: </span>
-                    <span className="text-white font-semibold">{post.engagement}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400">Reach: </span>
-                    <span className="text-white font-semibold">{post.reach}</span>
+                  <div className="flex gap-8 flex-shrink-0">
+                    <div className="flex flex-col items-center p-3 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-gray-100 dark:border-slate-800 min-w-[100px]">
+                      <span className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-1">Engagement</span>
+                      <span className="text-lg font-bold text-gray-900 dark:text-white tabular-nums">{post.engagement}</span>
+                    </div>
+                    <div className="flex flex-col items-center p-3 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-gray-100 dark:border-slate-800 min-w-[100px]">
+                      <span className="text-[10px] font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-1">Reach</span>
+                      <span className="text-lg font-bold text-gray-900 dark:text-white tabular-nums">{post.reach}</span>
+                    </div>
                   </div>
                 </div>
               </div>
